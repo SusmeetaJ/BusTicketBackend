@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d04e3c4b3237461ba9a5ade39da95dbc" Name="Diagram1" ZoomLevel="97">
+        <EntityTypeShape EntityType="finalprojectdbModel.T_ErrorLogs" Width="1.5" PointX="8" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="finalprojectdbModel.T_OTP_Details" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="finalprojectdbModel.T_PasswordHistoryLog" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="finalprojectdbModel.T_Roles" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="finalprojectdbModel.T_Users" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <AssociationConnector Association="finalprojectdbModel.FK_T_OTP_Details_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="finalprojectdbModel.FK_T_PasswordHistoryLog_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="finalprojectdbModel.FK_T_Users_ToTable" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="finalprojectdbModel.T_CityDetail" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="finalprojectdbModel.T_RouteDetail" Width="1.5" PointX="3" PointY="15.125" />
+        <EntityTypeShape EntityType="finalprojectdbModel.T_JourneyDetails" Width="1.5" PointX="5.625" PointY="13.5" IsExpanded="true" />
+        <AssociationConnector Association="finalprojectdbModel.FK_T_JourneyDetails_ToTable_1" />
+        <EntityTypeShape EntityType="finalprojectdbModel.T_BusDetails" Width="1.5" PointX="3.375" PointY="11.875" />
+        <AssociationConnector Association="finalprojectdbModel.FK_T_JourneyDetails_ToTable" />
+        <EntityTypeShape EntityType="finalprojectdbModel.T_AvlSeats" Width="1.5" PointX="1" PointY="11.875" />
+        <AssociationConnector Association="finalprojectdbModel.FK_T_AvlSeats_ToTable" />
+        <EntityTypeShape EntityType="finalprojectdbModel.T_ReservationDetails" Width="1.5" PointX="7.875" PointY="7.75" />
+        <AssociationConnector Association="finalprojectdbModel.FK_T_ReservationDetails_ToTable_1" />
+        <AssociationConnector Association="finalprojectdbModel.FK_T_ReservationDetails_ToTable" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

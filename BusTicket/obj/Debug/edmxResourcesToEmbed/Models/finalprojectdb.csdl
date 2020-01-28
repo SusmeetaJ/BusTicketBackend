@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="finalprojectdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="T_ErrorLogs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Source" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Method" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ErrorOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Message" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="StackTrace" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="T_OTP_Details">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="OTP" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="GeneratedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ValidTill" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="T_Users" Relationship="Self.FK_T_OTP_Details_ToTable" FromRole="T_OTP_Details" ToRole="T_Users" />
+  </EntityType>
+  <EntityType Name="T_PasswordHistoryLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="ChangedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="OldPassword" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NewPassword" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="T_Users" Relationship="Self.FK_T_PasswordHistoryLog_ToTable" FromRole="T_PasswordHistoryLog" ToRole="T_Users" />
+  </EntityType>
+  <EntityType Name="T_Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="T_Users" Relationship="Self.FK_T_Users_ToTable" FromRole="T_Roles" ToRole="T_Users" />
+  </EntityType>
+  <EntityType Name="T_Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmailId" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MobileNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsOnline" Type="Boolean" Nullable="false" />
+    <Property Name="IsLocked" Type="Boolean" Nullable="false" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="T_OTP_Details" Relationship="Self.FK_T_OTP_Details_ToTable" FromRole="T_Users" ToRole="T_OTP_Details" />
+    <NavigationProperty Name="T_PasswordHistoryLog" Relationship="Self.FK_T_PasswordHistoryLog_ToTable" FromRole="T_Users" ToRole="T_PasswordHistoryLog" />
+    <NavigationProperty Name="T_Roles" Relationship="Self.FK_T_Users_ToTable" FromRole="T_Users" ToRole="T_Roles" />
+    <NavigationProperty Name="T_ReservationDetails" Relationship="finalprojectdbModel.FK_T_ReservationDetails_ToTable" FromRole="T_Users" ToRole="T_ReservationDetails" />
+  </EntityType>
+  <Association Name="FK_T_OTP_Details_ToTable">
+    <End Role="T_Users" Type="Self.T_Users" Multiplicity="1" />
+    <End Role="T_OTP_Details" Type="Self.T_OTP_Details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="T_OTP_Details">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_T_PasswordHistoryLog_ToTable">
+    <End Role="T_Users" Type="Self.T_Users" Multiplicity="1" />
+    <End Role="T_PasswordHistoryLog" Type="Self.T_PasswordHistoryLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="T_PasswordHistoryLog">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_T_Users_ToTable">
+    <End Role="T_Roles" Type="Self.T_Roles" Multiplicity="1" />
+    <End Role="T_Users" Type="Self.T_Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="T_Users">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="finalprojectdbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="T_ErrorLogs" EntityType="Self.T_ErrorLogs" />
+    <EntitySet Name="T_OTP_Details" EntityType="Self.T_OTP_Details" />
+    <EntitySet Name="T_PasswordHistoryLog" EntityType="Self.T_PasswordHistoryLog" />
+    <EntitySet Name="T_Roles" EntityType="Self.T_Roles" />
+    <EntitySet Name="T_Users" EntityType="Self.T_Users" />
+    <AssociationSet Name="FK_T_OTP_Details_ToTable" Association="Self.FK_T_OTP_Details_ToTable">
+      <End Role="T_Users" EntitySet="T_Users" />
+      <End Role="T_OTP_Details" EntitySet="T_OTP_Details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_T_PasswordHistoryLog_ToTable" Association="Self.FK_T_PasswordHistoryLog_ToTable">
+      <End Role="T_Users" EntitySet="T_Users" />
+      <End Role="T_PasswordHistoryLog" EntitySet="T_PasswordHistoryLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_T_Users_ToTable" Association="Self.FK_T_Users_ToTable">
+      <End Role="T_Roles" EntitySet="T_Roles" />
+      <End Role="T_Users" EntitySet="T_Users" />
+    </AssociationSet>
+    <EntitySet Name="T_CityDetail" EntityType="finalprojectdbModel.T_CityDetail" />
+    <FunctionImport Name="proc_AllRole">
+      <Parameter Name="param1" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="proc_DeleteRole">
+      <Parameter Name="param1" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="proc_ModifyRole">
+      <Parameter Name="param1" Mode="In" Type="Int32" />
+      <Parameter Name="param2" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="T_RouteDetail" EntityType="finalprojectdbModel.T_RouteDetail" />
+    <EntitySet Name="T_JourneyDetails" EntityType="finalprojectdbModel.T_JourneyDetails" />
+    <AssociationSet Name="FK_T_JourneyDetails_ToTable_1" Association="finalprojectdbModel.FK_T_JourneyDetails_ToTable_1">
+      <End Role="T_RouteDetail" EntitySet="T_RouteDetail" />
+      <End Role="T_JourneyDetails" EntitySet="T_JourneyDetails" />
+    </AssociationSet>
+    <EntitySet Name="T_BusDetails" EntityType="finalprojectdbModel.T_BusDetails" />
+    <AssociationSet Name="FK_T_JourneyDetails_ToTable" Association="finalprojectdbModel.FK_T_JourneyDetails_ToTable">
+      <End Role="T_BusDetails" EntitySet="T_BusDetails" />
+      <End Role="T_JourneyDetails" EntitySet="T_JourneyDetails" />
+    </AssociationSet>
+    <EntitySet Name="T_AvlSeats" EntityType="finalprojectdbModel.T_AvlSeats" />
+    <AssociationSet Name="FK_T_AvlSeats_ToTable" Association="finalprojectdbModel.FK_T_AvlSeats_ToTable">
+      <End Role="T_BusDetails" EntitySet="T_BusDetails" />
+      <End Role="T_AvlSeats" EntitySet="T_AvlSeats" />
+    </AssociationSet>
+    <FunctionImport Name="CheckAvailable" ReturnType="Collection(finalprojectdbModel.CheckAvailable_Result)">
+      <Parameter Name="param1" Mode="In" Type="Int32" />
+      <Parameter Name="param2" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UpdateAvailable">
+      <Parameter Name="param1" Mode="In" Type="Int32" />
+      <Parameter Name="param2" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="T_ReservationDetails" EntityType="finalprojectdbModel.T_ReservationDetails" />
+    <AssociationSet Name="FK_T_ReservationDetails_ToTable_1" Association="finalprojectdbModel.FK_T_ReservationDetails_ToTable_1">
+      <End Role="T_JourneyDetails" EntitySet="T_JourneyDetails" />
+      <End Role="T_ReservationDetails" EntitySet="T_ReservationDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_T_ReservationDetails_ToTable" Association="finalprojectdbModel.FK_T_ReservationDetails_ToTable">
+      <End Role="T_Users" EntitySet="T_Users" />
+      <End Role="T_ReservationDetails" EntitySet="T_ReservationDetails" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="T_CityDetail">
+    <Key>
+      <PropertyRef Name="CiytId" />
+    </Key>
+    <Property Name="CiytId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CityName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="T_RouteDetail">
+    <Key>
+      <PropertyRef Name="RouteId" />
+    </Key>
+    <Property Name="RouteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RouteDistance" Type="Int32" Nullable="false" />
+    <Property Name="FromId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ToId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="T_JourneyDetails" Relationship="finalprojectdbModel.FK_T_JourneyDetails_ToTable_1" FromRole="T_RouteDetail" ToRole="T_JourneyDetails" />
+  </EntityType>
+  <EntityType Name="T_JourneyDetails">
+    <Key>
+      <PropertyRef Name="JourneyId" />
+    </Key>
+    <Property Name="JourneyId" Type="Int32" Nullable="false" />
+    <Property Name="BusId" Type="Int32" Nullable="false" />
+    <Property Name="RouteId" Type="Int32" Nullable="false" />
+    <Property Name="DepartureTime" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="ArrivalTime" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="JourneyFare" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="T_RouteDetail" Relationship="finalprojectdbModel.FK_T_JourneyDetails_ToTable_1" FromRole="T_JourneyDetails" ToRole="T_RouteDetail" />
+    <NavigationProperty Name="T_BusDetails" Relationship="finalprojectdbModel.FK_T_JourneyDetails_ToTable" FromRole="T_JourneyDetails" ToRole="T_BusDetails" />
+    <NavigationProperty Name="T_ReservationDetails" Relationship="finalprojectdbModel.FK_T_ReservationDetails_ToTable_1" FromRole="T_JourneyDetails" ToRole="T_ReservationDetails" />
+  </EntityType>
+  <Association Name="FK_T_JourneyDetails_ToTable_1">
+    <End Type="finalprojectdbModel.T_RouteDetail" Role="T_RouteDetail" Multiplicity="1" />
+    <End Type="finalprojectdbModel.T_JourneyDetails" Role="T_JourneyDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_RouteDetail">
+        <PropertyRef Name="RouteId" />
+      </Principal>
+      <Dependent Role="T_JourneyDetails">
+        <PropertyRef Name="RouteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="T_BusDetails">
+    <Key>
+      <PropertyRef Name="BusId" />
+    </Key>
+    <Property Name="BusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BusRegNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BusType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BusCapacity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="T_JourneyDetails" Relationship="finalprojectdbModel.FK_T_JourneyDetails_ToTable" FromRole="T_BusDetails" ToRole="T_JourneyDetails" />
+    <NavigationProperty Name="T_AvlSeats" Relationship="finalprojectdbModel.FK_T_AvlSeats_ToTable" FromRole="T_BusDetails" ToRole="T_AvlSeats" />
+  </EntityType>
+  <Association Name="FK_T_JourneyDetails_ToTable">
+    <End Type="finalprojectdbModel.T_BusDetails" Role="T_BusDetails" Multiplicity="1" />
+    <End Type="finalprojectdbModel.T_JourneyDetails" Role="T_JourneyDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_BusDetails">
+        <PropertyRef Name="BusId" />
+      </Principal>
+      <Dependent Role="T_JourneyDetails">
+        <PropertyRef Name="BusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="T_AvlSeats">
+    <Key>
+      <PropertyRef Name="Avlid" />
+    </Key>
+    <Property Name="Avlid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BusId" Type="Int32" Nullable="false" />
+    <Property Name="Available" Type="Int32" />
+    <Property Name="Capacity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="T_BusDetails" Relationship="finalprojectdbModel.FK_T_AvlSeats_ToTable" FromRole="T_AvlSeats" ToRole="T_BusDetails" />
+  </EntityType>
+  <Association Name="FK_T_AvlSeats_ToTable">
+    <End Type="finalprojectdbModel.T_BusDetails" Role="T_BusDetails" Multiplicity="1" />
+    <End Type="finalprojectdbModel.T_AvlSeats" Role="T_AvlSeats" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_BusDetails">
+        <PropertyRef Name="BusId" />
+      </Principal>
+      <Dependent Role="T_AvlSeats">
+        <PropertyRef Name="BusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="CheckAvailable_Result">
+    <Property Type="Int32" Name="Column1" Nullable="true" />
+    <Property Type="Int32" Name="Column2" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="T_ReservationDetails">
+    <Key>
+      <PropertyRef Name="ReserveId" />
+    </Key>
+    <Property Name="ReserveId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="JourneyId" Type="Int32" Nullable="false" />
+    <Property Name="ReserveDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="NoOfSeat" Type="Int32" Nullable="false" />
+    <Property Name="DepartureDate" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Amount" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="T_JourneyDetails" Relationship="finalprojectdbModel.FK_T_ReservationDetails_ToTable_1" FromRole="T_ReservationDetails" ToRole="T_JourneyDetails" />
+    <NavigationProperty Name="T_Users" Relationship="finalprojectdbModel.FK_T_ReservationDetails_ToTable" FromRole="T_ReservationDetails" ToRole="T_Users" />
+  </EntityType>
+  <Association Name="FK_T_ReservationDetails_ToTable_1">
+    <End Type="finalprojectdbModel.T_JourneyDetails" Role="T_JourneyDetails" Multiplicity="1" />
+    <End Type="finalprojectdbModel.T_ReservationDetails" Role="T_ReservationDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_JourneyDetails">
+        <PropertyRef Name="JourneyId" />
+      </Principal>
+      <Dependent Role="T_ReservationDetails">
+        <PropertyRef Name="JourneyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_T_ReservationDetails_ToTable">
+    <End Type="finalprojectdbModel.T_Users" Role="T_Users" Multiplicity="1" />
+    <End Type="finalprojectdbModel.T_ReservationDetails" Role="T_ReservationDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="T_ReservationDetails">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

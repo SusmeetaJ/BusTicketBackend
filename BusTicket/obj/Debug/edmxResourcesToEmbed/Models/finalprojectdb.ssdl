@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="finalprojectdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="T_AvlSeats">
+    <Key>
+      <PropertyRef Name="Avlid" />
+    </Key>
+    <Property Name="Avlid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BusId" Type="int" Nullable="false" />
+    <Property Name="Available" Type="int" />
+    <Property Name="Capacity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="T_BusDetails">
+    <Key>
+      <PropertyRef Name="BusId" />
+    </Key>
+    <Property Name="BusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BusRegNo" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BusType" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BusCapacity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="T_CityDetail">
+    <Key>
+      <PropertyRef Name="CiytId" />
+    </Key>
+    <Property Name="CiytId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CityName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="T_ErrorLogs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Source" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Method" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="ErrorOn" Type="datetime" Nullable="false" />
+    <Property Name="Message" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="StackTrace" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="T_JourneyDetails">
+    <Key>
+      <PropertyRef Name="JourneyId" />
+    </Key>
+    <Property Name="JourneyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BusId" Type="int" Nullable="false" />
+    <Property Name="RouteId" Type="int" Nullable="false" />
+    <Property Name="DepartureTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="ArrivalTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="JourneyFare" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="T_OTP_Details">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="OTP" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="GeneratedOn" Type="datetime" Nullable="false" />
+    <Property Name="ValidTill" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="T_PasswordHistoryLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="ChangedOn" Type="datetime" Nullable="false" />
+    <Property Name="OldPassword" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="NewPassword" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="T_ReservationDetails">
+    <Key>
+      <PropertyRef Name="ReserveId" />
+    </Key>
+    <Property Name="ReserveId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="JourneyId" Type="int" Nullable="false" />
+    <Property Name="ReserveDate" Type="date" Nullable="false" />
+    <Property Name="NoOfSeat" Type="int" Nullable="false" />
+    <Property Name="DepartureDate" Type="date" Nullable="false" />
+    <Property Name="Amount" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="T_Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="varchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="T_RouteDetail">
+    <Key>
+      <PropertyRef Name="RouteId" />
+    </Key>
+    <Property Name="RouteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RouteDistance" Type="int" Nullable="false" />
+    <Property Name="FromId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ToId" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="T_Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmailId" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="MobileNo" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="IsOnline" Type="bit" Nullable="false" />
+    <Property Name="IsLocked" Type="bit" Nullable="false" />
+    <Property Name="RoleId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_T_AvlSeats_ToTable">
+    <End Role="T_BusDetails" Type="Self.T_BusDetails" Multiplicity="1" />
+    <End Role="T_AvlSeats" Type="Self.T_AvlSeats" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_BusDetails">
+        <PropertyRef Name="BusId" />
+      </Principal>
+      <Dependent Role="T_AvlSeats">
+        <PropertyRef Name="BusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_T_JourneyDetails_ToTable">
+    <End Role="T_BusDetails" Type="Self.T_BusDetails" Multiplicity="1" />
+    <End Role="T_JourneyDetails" Type="Self.T_JourneyDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_BusDetails">
+        <PropertyRef Name="BusId" />
+      </Principal>
+      <Dependent Role="T_JourneyDetails">
+        <PropertyRef Name="BusId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_T_JourneyDetails_ToTable_1">
+    <End Role="T_RouteDetail" Type="Self.T_RouteDetail" Multiplicity="1" />
+    <End Role="T_JourneyDetails" Type="Self.T_JourneyDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_RouteDetail">
+        <PropertyRef Name="RouteId" />
+      </Principal>
+      <Dependent Role="T_JourneyDetails">
+        <PropertyRef Name="RouteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_T_OTP_Details_ToTable">
+    <End Role="T_Users" Type="Self.T_Users" Multiplicity="1" />
+    <End Role="T_OTP_Details" Type="Self.T_OTP_Details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="T_OTP_Details">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_T_PasswordHistoryLog_ToTable">
+    <End Role="T_Users" Type="Self.T_Users" Multiplicity="1" />
+    <End Role="T_PasswordHistoryLog" Type="Self.T_PasswordHistoryLog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="T_PasswordHistoryLog">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_T_ReservationDetails_ToTable">
+    <End Role="T_Users" Type="Self.T_Users" Multiplicity="1" />
+    <End Role="T_ReservationDetails" Type="Self.T_ReservationDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="T_ReservationDetails">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_T_ReservationDetails_ToTable_1">
+    <End Role="T_JourneyDetails" Type="Self.T_JourneyDetails" Multiplicity="1" />
+    <End Role="T_ReservationDetails" Type="Self.T_ReservationDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_JourneyDetails">
+        <PropertyRef Name="JourneyId" />
+      </Principal>
+      <Dependent Role="T_ReservationDetails">
+        <PropertyRef Name="JourneyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_T_Users_ToTable">
+    <End Role="T_Roles" Type="Self.T_Roles" Multiplicity="1" />
+    <End Role="T_Users" Type="Self.T_Users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="T_Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="T_Users">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="CheckAvailable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="param1" Type="int" Mode="In" />
+    <Parameter Name="param2" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_AllRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="param1" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="proc_DeleteRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="param1" Type="int" Mode="In" />
+  </Function>
+  <Function Name="proc_ModifyRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="param1" Type="int" Mode="In" />
+    <Parameter Name="param2" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="UpdateAvailable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="param1" Type="int" Mode="In" />
+    <Parameter Name="param2" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="finalprojectdbModelStoreContainer">
+    <EntitySet Name="T_AvlSeats" EntityType="Self.T_AvlSeats" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_BusDetails" EntityType="Self.T_BusDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_CityDetail" EntityType="Self.T_CityDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_ErrorLogs" EntityType="Self.T_ErrorLogs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_JourneyDetails" EntityType="Self.T_JourneyDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_OTP_Details" EntityType="Self.T_OTP_Details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_PasswordHistoryLog" EntityType="Self.T_PasswordHistoryLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_ReservationDetails" EntityType="Self.T_ReservationDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Roles" EntityType="Self.T_Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_RouteDetail" EntityType="Self.T_RouteDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="T_Users" EntityType="Self.T_Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_T_AvlSeats_ToTable" Association="Self.FK_T_AvlSeats_ToTable">
+      <End Role="T_BusDetails" EntitySet="T_BusDetails" />
+      <End Role="T_AvlSeats" EntitySet="T_AvlSeats" />
+    </AssociationSet>
+    <AssociationSet Name="FK_T_JourneyDetails_ToTable" Association="Self.FK_T_JourneyDetails_ToTable">
+      <End Role="T_BusDetails" EntitySet="T_BusDetails" />
+      <End Role="T_JourneyDetails" EntitySet="T_JourneyDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_T_JourneyDetails_ToTable_1" Association="Self.FK_T_JourneyDetails_ToTable_1">
+      <End Role="T_RouteDetail" EntitySet="T_RouteDetail" />
+      <End Role="T_JourneyDetails" EntitySet="T_JourneyDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_T_OTP_Details_ToTable" Association="Self.FK_T_OTP_Details_ToTable">
+      <End Role="T_Users" EntitySet="T_Users" />
+      <End Role="T_OTP_Details" EntitySet="T_OTP_Details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_T_PasswordHistoryLog_ToTable" Association="Self.FK_T_PasswordHistoryLog_ToTable">
+      <End Role="T_Users" EntitySet="T_Users" />
+      <End Role="T_PasswordHistoryLog" EntitySet="T_PasswordHistoryLog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_T_ReservationDetails_ToTable" Association="Self.FK_T_ReservationDetails_ToTable">
+      <End Role="T_Users" EntitySet="T_Users" />
+      <End Role="T_ReservationDetails" EntitySet="T_ReservationDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_T_ReservationDetails_ToTable_1" Association="Self.FK_T_ReservationDetails_ToTable_1">
+      <End Role="T_JourneyDetails" EntitySet="T_JourneyDetails" />
+      <End Role="T_ReservationDetails" EntitySet="T_ReservationDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_T_Users_ToTable" Association="Self.FK_T_Users_ToTable">
+      <End Role="T_Roles" EntitySet="T_Roles" />
+      <End Role="T_Users" EntitySet="T_Users" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

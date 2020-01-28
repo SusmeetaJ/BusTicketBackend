@@ -1,0 +1,5 @@
+C:\Users\om\Desktop\Dacproject\MyLoggerLib\bin\Debug\MyLoggerLib.dll
+C:\Users\om\Desktop\Dacproject\MyLoggerLib\bin\Debug\MyLoggerLib.pdb
+C:\Users\om\Desktop\Dacproject\MyLoggerLib\obj\Debug\MyLoggerLib.csprojResolveAssemblyReference.cache
+C:\Users\om\Desktop\Dacproject\MyLoggerLib\obj\Debug\MyLoggerLib.dll
+C:\Users\om\Desktop\Dacproject\MyLoggerLib\obj\Debug\MyLoggerLib.pdb

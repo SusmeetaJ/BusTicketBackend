@@ -1,0 +1,8 @@
+C:\Users\om\Desktop\Dacproject\BusTicket\MyUnitTestProject\obj\Debug\MyUnitTestProject.csprojResolveAssemblyReference.cache
+C:\Users\om\Desktop\Dacproject\BusTicket\MyUnitTestProject\bin\Debug\MyUnitTestProject.dll
+C:\Users\om\Desktop\Dacproject\BusTicket\MyUnitTestProject\bin\Debug\MyUnitTestProject.pdb
+C:\Users\om\Desktop\Dacproject\BusTicket\MyUnitTestProject\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\om\Desktop\Dacproject\BusTicket\MyUnitTestProject\bin\Debug\MySecurityLib.dll
+C:\Users\om\Desktop\Dacproject\BusTicket\MyUnitTestProject\bin\Debug\MySecurityLib.pdb
+C:\Users\om\Desktop\Dacproject\BusTicket\MyUnitTestProject\obj\Debug\MyUnitTestProject.dll
+C:\Users\om\Desktop\Dacproject\BusTicket\MyUnitTestProject\obj\Debug\MyUnitTestProject.pdb

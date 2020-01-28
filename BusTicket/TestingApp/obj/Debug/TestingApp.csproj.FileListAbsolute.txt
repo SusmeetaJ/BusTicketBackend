@@ -1,0 +1,8 @@
+C:\Users\om\Desktop\Dacproject\BusTicket\TestingApp\bin\Debug\TestingApp.exe.config
+C:\Users\om\Desktop\Dacproject\BusTicket\TestingApp\bin\Debug\TestingApp.exe
+C:\Users\om\Desktop\Dacproject\BusTicket\TestingApp\bin\Debug\TestingApp.pdb
+C:\Users\om\Desktop\Dacproject\BusTicket\TestingApp\bin\Debug\MyLoggerLib.dll
+C:\Users\om\Desktop\Dacproject\BusTicket\TestingApp\bin\Debug\MyLoggerLib.pdb
+C:\Users\om\Desktop\Dacproject\BusTicket\TestingApp\obj\Debug\TestingApp.csprojResolveAssemblyReference.cache
+C:\Users\om\Desktop\Dacproject\BusTicket\TestingApp\obj\Debug\TestingApp.exe
+C:\Users\om\Desktop\Dacproject\BusTicket\TestingApp\obj\Debug\TestingApp.pdb
